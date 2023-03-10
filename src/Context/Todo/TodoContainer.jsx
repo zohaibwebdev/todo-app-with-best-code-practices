@@ -25,7 +25,7 @@ export default function TodoContainer({ children }) {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [add]);
 
   const createTodo = (newTodoValue, callback) => {
     console.log(newTodoValue);
