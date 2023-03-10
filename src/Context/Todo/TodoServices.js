@@ -14,3 +14,10 @@ export const addTodo = async (todo) => {
     throw new Error(error);
   }
 };
+
+export const deleteTodos = async (id) => {
+  const { data, error } = await supabase.from("todo").delete().eq("id", id);
+  if (error) {
+    throw new Error(error);
+  }
+};
