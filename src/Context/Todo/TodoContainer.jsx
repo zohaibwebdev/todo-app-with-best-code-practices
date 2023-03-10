@@ -15,7 +15,7 @@ export default function TodoContainer({ children }) {
         };
       });
       callback();
-    }, 2000);
+    }, 1000);
   };
 
   const deleteTodo = (todoId, callback) => {
