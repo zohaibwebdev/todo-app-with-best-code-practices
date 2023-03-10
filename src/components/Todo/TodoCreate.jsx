@@ -2,9 +2,13 @@ import React, { useState } from "react";
 
 export default function TodoCreate({ createTodo }) {
   const [todo, setTodo] = useState("");
+  const [adding, setAdding] = useState(false);
   const addTodo = () => {
-    createTodo(todo);
-    setTodo("");
+    setAdding(true);
+    createTodo(todo, () => {
+      setTodo("");
+      setAdding(false);
+    });
   };
   return (
     <div>
@@ -13,9 +17,17 @@ export default function TodoCreate({ createTodo }) {
         value={todo}
         onChange={(e) => setTodo(e.target.value)}
       />
-      <button onClick={addTodo}>Add</button>
+      <button disabled={adding} onClick={addTodo}>
+        {adding ? "adding..." : "add"}
+      </button>
       <br />
       <hr />
     </div>
   );
+}
+
+{
+  /*
+    - setAddin
+  */
 }
