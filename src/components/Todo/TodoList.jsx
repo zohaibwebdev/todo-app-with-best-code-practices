@@ -1,12 +1,13 @@
 import React from "react";
 import TodoRow from "./TodoRow";
 
-export default function TodoList({ todoList, deleteTodo, text }) {
+export default function TodoList({ todoList, deleteTodo }) {
   return (
     <div>
-      {todoList.map((el, i) => {
-        return <TodoRow {...el} deleteTodo={deleteTodo} key={i} text={text} />;
+      {todoList.map((todo) => {
+        return <TodoRow {...todo} deleteTodo={deleteTodo} key={todo.id} />;
       })}
     </div>
   );
 }
+// {...todo} === todo={todo.todo} id={todo.id}
