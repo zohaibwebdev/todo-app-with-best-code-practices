@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { uuid } from "../../helpers/uuid";
 import { TodoProvider } from "./TodoContext";
 import { todoStoreDefaults } from "./TodoDefaults";
-import { getTodos } from "./TodoServices";
+import { addTodo, getTodos } from "./TodoServices";
 
 export default function TodoContainer({ children }) {
   const [state, setState] = useState(todoStoreDefaults);
@@ -15,6 +15,10 @@ export default function TodoContainer({ children }) {
     }));
   }
 
+  async function add(newTodo) {
+    const data = await addTodo(newTodo);
+  }
+
   useEffect(() => {
     try {
       load();
@@ -24,15 +28,9 @@ export default function TodoContainer({ children }) {
   }, []);
 
   const createTodo = (newTodoValue, callback) => {
-    setTimeout(() => {
-      setState((prevState) => {
-        return {
-          ...prevState,
-          todoList: [...prevState.todoList, { name: newTodoValue, id: uuid() }],
-        };
-      });
-      callback();
-    }, 1000);
+    console.log(newTodoValue);
+    add(newTodoValue);
+    callback();
   };
 
   const deleteTodo = (todoId, callback) => {
