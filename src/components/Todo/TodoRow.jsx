@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function TodoRow({ id, name, deleteTodo, text }) {
+export default function TodoRow({ id, todo, deleteTodo }) {
   const [deleting, setDeleting] = useState(false);
   const deleteTodoAction = () => {
     // more operations
@@ -13,7 +13,7 @@ export default function TodoRow({ id, name, deleteTodo, text }) {
   return (
     <div>
       <p>
-        {id} - {name}
+        {id} - {todo}
       </p>
       <button disabled={deleting} onClick={deleteTodoAction}>
         {deleting ? "deleting..." : "delete"}
