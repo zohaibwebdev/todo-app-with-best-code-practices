@@ -6,13 +6,16 @@ import { todoStoreDefaults } from "./TodoDefaults";
 export default function TodoContainer({ children }) {
   const [state, setState] = useState(todoStoreDefaults);
 
-  const createTodo = (newTodoValue) => {
-    setState((prevState) => {
-      return {
-        ...prevState,
-        todoList: [...prevState.todoList, { name: newTodoValue, id: uuid() }],
-      };
-    });
+  const createTodo = (newTodoValue, callback) => {
+    setTimeout(() => {
+      setState((prevState) => {
+        return {
+          ...prevState,
+          todoList: [...prevState.todoList, { name: newTodoValue, id: uuid() }],
+        };
+      });
+      callback();
+    }, 2000);
   };
 
   const deleteTodo = (todoId, callback) => {
