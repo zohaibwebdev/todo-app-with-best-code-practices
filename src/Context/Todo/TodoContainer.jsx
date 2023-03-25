@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { uuid } from "../../helpers/uuid";
+import { generateIncrementalIdsFromListOfObj } from "../../helpers";
 import { TodoProvider } from "./TodoContext";
 import { todoStoreDefaults } from "./TodoDefaults";
 import { addTodo, deleteTodos, getTodos } from "./TodoServices";
@@ -24,14 +24,8 @@ export default function TodoContainer({ children }) {
   }, []);
 
   const createTodo = async (newTodoValue, callback) => {
-    function getId() {
-      let arr = state.todoList;
-      const lastObject = arr[arr.length - 1];
-      const requiredId = (lastObject?.id ?? 0) + 1;
-      return requiredId;
-    }
     try {
-      const newTodoId = getId();
+      const newTodoId = generateIncrementalIdsFromListOfObj(state.todoList);
       await addTodo(newTodoId, newTodoValue);
       setState((prevState) => {
         return {
