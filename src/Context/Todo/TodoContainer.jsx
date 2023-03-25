@@ -24,8 +24,24 @@ export default function TodoContainer({ children }) {
   }, []);
 
   const createTodo = async (newTodoValue, callback) => {
+    function getId() {
+      let arr = state.todoList;
+      const lastObject = arr[arr.length - 1];
+      const requiredId = (lastObject?.id ?? 0) + 1;
+      return requiredId;
+    }
     try {
-      await addTodo(newTodoValue);
+      const newTodoId = getId();
+      await addTodo(newTodoId, newTodoValue);
+      setState((prevState) => {
+        return {
+          ...prevState,
+          todoList: [
+            ...prevState.todoList,
+            { id: newTodoId, todo: newTodoValue },
+          ],
+        };
+      });
     } catch (err) {
       console.error(err);
     } finally {
