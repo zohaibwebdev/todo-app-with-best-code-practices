@@ -8,8 +8,8 @@ export const getTodos = async () => {
   return data;
 };
 
-export const addTodo = async (todo) => {
-  const { error } = await supabase.from("todo").insert([{ todo }]);
+export const addTodo = async (id, todo) => {
+  const { error } = await supabase.from("todo").insert([{ id, todo }]);
   if (error) {
     throw new Error(error);
   }
