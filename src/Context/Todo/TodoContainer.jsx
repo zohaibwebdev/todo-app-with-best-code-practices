@@ -15,22 +15,22 @@ export default function TodoContainer({ children }) {
     }));
   }
 
-  async function add(newTodo) {
-    const data = await addTodo(newTodo);
-  }
-
   useEffect(() => {
     try {
       load();
     } catch (err) {
       console.log(err);
     }
-  }, [add]);
+  }, []);
 
-  const createTodo = (newTodoValue, callback) => {
-    console.log(newTodoValue);
-    add(newTodoValue);
-    callback();
+  const createTodo = async (newTodoValue, callback) => {
+    try {
+      await addTodo(newTodoValue);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      callback();
+    }
   };
 
   const deleteTodo = (todoId, callback) => {

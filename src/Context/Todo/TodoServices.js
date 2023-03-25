@@ -9,7 +9,7 @@ export const getTodos = async () => {
 };
 
 export const addTodo = async (todo) => {
-  const { data, error } = await supabase.from("todo").insert([{ todo }]);
+  const { error } = await supabase.from("todo").insert([{ todo }]);
   if (error) {
     throw new Error(error);
   }
