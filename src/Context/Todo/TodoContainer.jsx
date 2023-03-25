@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { uuid } from "../../helpers/uuid";
 import { TodoProvider } from "./TodoContext";
 import { todoStoreDefaults } from "./TodoDefaults";
-import { addTodo, getTodos } from "./TodoServices";
+import { addTodo, deleteTodos, getTodos } from "./TodoServices";
 
 export default function TodoContainer({ children }) {
   const [state, setState] = useState(todoStoreDefaults);
@@ -33,21 +33,20 @@ export default function TodoContainer({ children }) {
     }
   };
 
-  const deleteTodo = (todoId, callback) => {
-    // async operation if BE
+  const deleteTodo = async (todoId, callback) => {
     try {
-      setTimeout(() => {
-        setState((prev) => {
-          const filterTodo = prev.todoList.filter((todo) => todo.id !== todoId);
-          return {
-            ...prev,
-            todoList: [...filterTodo],
-          };
-        });
-        callback();
-      }, 2000);
+      await deleteTodos(todoId);
+      setState((prev) => {
+        const filterTodo = prev.todoList.filter((todo) => todo.id !== todoId);
+        return {
+          ...prev,
+          todoList: [...filterTodo],
+        };
+      });
     } catch (err) {
-      console.log(err);
+      console.error(err);
+    } finally {
+      callback();
     }
   };
 
