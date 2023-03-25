@@ -27,7 +27,7 @@ export default function TodoContainer({ children }) {
     function getId() {
       let arr = state.todoList;
       const lastObject = arr[arr.length - 1];
-      const requiredId = lastObject.id + 1;
+      const requiredId = (lastObject?.id ?? 0) + 1;
       return requiredId;
     }
     try {
