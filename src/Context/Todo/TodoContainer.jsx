@@ -18,9 +18,6 @@ export default function TodoContainer({ children }) {
   async function add(newTodo) {
     const data = await addTodo(newTodo);
   }
-  async function deletes(id) {
-    const data = await deleteTodos(id);
-  }
 
   useEffect(() => {
     try {
@@ -35,9 +32,21 @@ export default function TodoContainer({ children }) {
     callback();
   };
 
-  const deleteTodo = (todoId, callback) => {
-    deletes(todoId);
-    callback();
+  const deleteTodo = async (todoId, callback) => {
+    try {
+      await deleteTodos(todoId);
+      setState((prev) => {
+        const filterTodo = prev.todoList.filter((todo) => todo.id !== todoId);
+        return {
+          ...prev,
+          todoList: [...filterTodo],
+        };
+      });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      callback();
+    }
   };
 
   return (
