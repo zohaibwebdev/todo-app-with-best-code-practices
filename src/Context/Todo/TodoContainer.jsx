@@ -66,7 +66,6 @@ export default function TodoContainer({ children }) {
         todoList: state.todoList,
         createTodo: createTodo,
         deleteTodo: deleteTodo,
-        text: state.text,
       }}
     >
       {children}
